@@ -4,14 +4,29 @@
 var s;
 var scl = 20;
 
+var food;
+
 function setup(){
     createCanvas(600,600);
     s = new Snake();
+    frameRate(10);
+    food = pickFoodLockation();
 }
+function pickFoodLockation(){
+    var cols = floor(width/scl);
+    var rows = floor(height/scl);
+    food = createVector(floor(random(cols)),floor(random(rows)));
+    food.mult(scl);
+    return food;
+}
+
 function draw() {
     background(51);
+    fill(255,0,100);
+    rect(food.x,food.y,scl,scl);
     s.update();
     s.show();
+
 }
 
 function keyPressed() {
@@ -26,24 +41,3 @@ function keyPressed() {
     }
 }
 
-function Snake(){
-    this.x = 0;
-    this.y = 0;
-    this.xspeed = 1;
-    this.yspeed = 0;
-
-    this.dir = function (x,y) {
-        this.xspeed = x;
-        this.yspeed = y;
-    }
-
-    this.update = function() {
-        this.x = this.x + this.xspeed * scl;
-        this.y = this.y + this.yspeed * scl;
-    }
-
-    this.show = function() {
-        fill(255);
-        rect(this.x, this.y, scl,scl);
-    }
-}
