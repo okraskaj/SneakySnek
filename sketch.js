@@ -24,6 +24,7 @@ function draw() {
     background(51);
     fill(255,0,100);
     rect(food.x,food.y,scl,scl);
+    s.death();
     s.update();
     s.show();
     if (s.eat(food)){

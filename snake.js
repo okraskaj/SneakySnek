@@ -11,6 +11,9 @@ function Snake(){
 
 
     this.dir = function (x,y) {
+        if(this.xspeed == -x || this.yspeed == -y){
+            return;
+        }
         this.xspeed = x;
         this.yspeed = y;
     }
@@ -19,15 +22,26 @@ function Snake(){
         var d = dist(this.x, this.y, pos.x, pos.y);
         if (d<1){
             this.total++;
-            this.tail[this.total-1]= createVector(pos.x, pos.y)
             return true;
         }
         return false;
     }
 
+    this.death = function() {
+        for (var i = 0; i < this.tail.length; i++) {
+            var pos = this.tail[i];
+            var d = dist(this.x, this.y, pos.x, pos.y);
+            if(d < 1){
+                this.total = 0;
+                this.tail =[];
+                console.log("Game over")
+            }
+        }
+    }
+
     this.update = function() {
         if (this.total === this.tail.length){
-            for (var i = 0; i < this.total-1; i++){
+            for (var i = 0; i < this.tail.length -1; i++){
                 this.tail[i] = this.tail[i+1];
             }
         }
@@ -44,7 +58,7 @@ function Snake(){
 
     this.show = function() {
         fill(255);
-        for (var i = 0; i < this.total; i++) {
+        for (var i = 0; i < this.tail.length; i++) {
             rect(this.tail[i].x, this.tail[i].y, scl,scl);
         }
         rect(this.x, this.y, scl,scl);
