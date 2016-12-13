@@ -26,6 +26,9 @@ function draw() {
     rect(food.x,food.y,scl,scl);
     s.update();
     s.show();
+    if (s.eat(food)){
+        pickFoodLockation();
+    }
 
 }
 
