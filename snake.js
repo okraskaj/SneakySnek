@@ -11,7 +11,7 @@ function Snake(){
 
 
     this.dir = function (x,y) {
-        if(this.xspeed == -x || this.yspeed == -y){
+        if(this.total>0 && (this.xspeed == -x || this.yspeed == -y)){
             return;
         }
         this.xspeed = x;
